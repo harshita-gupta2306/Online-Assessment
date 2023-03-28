@@ -104,9 +104,7 @@ const Home = () => {
                         </Card>
                     </div>
 
-                    <Sign_img></Sign_img>
-                    
-                    
+                    <Sign_img></Sign_img>  
                 </section>
 
             </div>

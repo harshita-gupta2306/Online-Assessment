@@ -10,7 +10,7 @@ const Header = () => {
                 <Navbar.Brand href="#home">Skill Test</Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="#features">Features</Nav.Link>
+                    <Nav.Link href="/instructions">Instructions</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
