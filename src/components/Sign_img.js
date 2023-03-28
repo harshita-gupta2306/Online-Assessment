@@ -43,7 +43,7 @@ const Sign_img = () => {
                             You Can view Your photo after clicking the image
                         </Card.Text>
                     </Card.Body>
-                    <Card style={{ width: '22rem', height: '16.5rem', background: 'rgb(252, 240, 3)', margin: '0.5rem' }}>
+                    <Card style={{ width: '22rem', height: '16.5rem', background: 'rgb(141, 143, 148)', margin: '0.5rem' }}>
                         {url && (
                             <Card.Img variant="top" src={url} alt="ScreenShot" />
 
