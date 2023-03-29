@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Webcam from 'react-webcam';
+import {registerStudents} from '../api/Api'
 
 
 const Home = () => {
@@ -27,9 +28,7 @@ const Home = () => {
         collegeName:"",
         password:""
     })
-    console.log(inpval);
     const [data,setData] = useState([])
-
     const getData = (e)=>{
         // console.log(e.target.value);
         const{value,name}=e.target;
@@ -61,11 +60,25 @@ const Home = () => {
             alert("password length should be greater than 8")
         }
         else{
-            console.log("Data Added successfully");
-            localStorage.setItem("CandidateData",JSON.stringify([...data,inpval]));
+            const formData = new FormData();
+            let data = {
+                assessmentId:1,
+                email:email,
+                name:name,
+                linkedin:"www.linkidin.com"
+                // lastName:lastName,
+                // dob:dob,
+                // collegeName:collegeName
+            }
+            data = JSON.stringify(data)
+            formData.append("body", data)
+            formData.append("photo", dataURLtoFile(url,"photo.png"))
+
+            registerStudents(formData)
         }
         
     }
+
     return (
         <>
             <div className="container mt-5">
@@ -160,5 +173,17 @@ const Home = () => {
 
     )
 }
+
+const dataURLtoFile = (dataurl, filename) => {
+  const arr = dataurl.split(",");
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
+};
 
 export default Home
