@@ -1,0 +1,22 @@
+.assessment-completed {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .assessment-completed h2 {
+    margin-bottom: 2rem;
+  }
+  
+  .assessment-completed button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+  }
+  
