@@ -17,6 +17,7 @@ function Question({question,totalQuestions,currentQuestion,setAnswer}){
         });
         setSelectedOption(null);
     }
+
     useEffect(()=>{
         progressBar.current.classList.remove("active");
         setTimeout(()=>{
@@ -25,6 +26,7 @@ function Question({question,totalQuestions,currentQuestion,setAnswer}){
         timer.current = setTimeout(gotoNextQuestion,10*1000);
         return gotoNextQuestion;
     },[question]);
+    
     return(
         <div className="question">
             <div className="progress-bar" ref={progressBar}></div>
@@ -35,7 +37,7 @@ function Question({question,totalQuestions,currentQuestion,setAnswer}){
                 <div className="title">
                     <span>Question:</span>
                     <p>
-                        {question.title}
+                        {question.question}
                     </p>
                 </div>
                 <div className="options">
