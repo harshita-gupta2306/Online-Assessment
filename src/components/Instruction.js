@@ -58,7 +58,7 @@ const Home = () => {
       <div className="container-fluid nav_bg">
         <h3 className="text-center" style={{ marginTop: "3rem" }}>
           {" "}
-          All the best{" "}
+          Welcome to the assessment{" "}
         </h3>
         <br />
         <div className="container-fluid mb-5">
@@ -87,9 +87,12 @@ const Home = () => {
                 </div>
                 {data ? (
                   <div className="col-md-4 col-10 mx-auto">
-                    <h4> Details:</h4>
-                    <p>
-                      0. Welcome to the assessment {data.candidateEmail}. <br />
+                    <h4>All the Best</h4>
+                    
+                   <b>{data.candidateEmail}. </b> <br />
+                       <h4> Instructions:</h4>
+              
+                      <p>
                       1. All questions are compulsory.
                       <br />
                       2. Try to submit the paper before the end time.
