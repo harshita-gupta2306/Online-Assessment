@@ -1,7 +1,7 @@
 import {makeGetRequest, makePostRequest} from './Axios';
 
-export const getUser = (linkId) => {
-  return makeGetRequest(`/assessmentAttempts/${linkId}`);
+export const getUser = async (linkId) => {
+  return makeGetRequest(`/api/assessmentAttempt/getAssessment?linkId=${linkId}`);
 };
 
 export const getQuestions = (

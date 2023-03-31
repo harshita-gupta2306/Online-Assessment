@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const baseURL = "http://localhost:8080";
-console.log(baseURL)
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
@@ -10,8 +9,8 @@ const axiosInstance = axios.create({
   },
 });
 
-export const makeGetRequest = (url) => {
-  return axiosInstance.get(url);
+export const makeGetRequest = async (url) => {
+  return await axiosInstance.get(url);
 };
 
 export const makePostRequest = async (formData)=>{
@@ -20,6 +19,5 @@ export const makePostRequest = async (formData)=>{
       "Content-Type": "multipart/form-data",
     },
   });
-
-  console.log(response)
+  return response
 }
