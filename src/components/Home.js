@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Webcam from 'react-webcam';
 import {registerStudents} from '../api/Api'
-
+import "./test.css"; // Import the CSS file
 
 const Home = () => {
     const webRef = useRef(null);

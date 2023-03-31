@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   let search = window.location.search;
@@ -12,6 +13,8 @@ const Home = () => {
 
   const [data, setData] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUserDetails();
@@ -30,6 +33,10 @@ const Home = () => {
       setIsLoading(false);
     }
   };
+
+  const handleStart = () => {
+    navigate(`/Test`, { state: { linkId } });
+    };
 
   if (isLoading) {
     return (
@@ -78,6 +85,7 @@ const Home = () => {
                         <a
                           href="http://localhost:3004/Test"
                           class="btn btn-success"
+                          onClick={handleStart}
                         >
                           Give Camera Access
                         </a>
@@ -118,7 +126,7 @@ const Home = () => {
           <br />
           <div className="text-center">
             <Link to="/Test"></Link>
-            <Button variant="success" href="/Test">
+            <Button variant="success" onClick={handleStart}>
               Start
             </Button>
           </div>
