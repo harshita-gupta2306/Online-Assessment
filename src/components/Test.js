@@ -4,21 +4,23 @@ import Question from "./Question.js";
 import { useEffect } from "react";
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
+import { Spinner } from "react-bootstrap";
 
 const Test = (props) => {
     const location = useLocation();
   const { linkId } = location.state
-    console.log(linkId)
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [markedAnswers, setMarkedAnswers] = useState([]);
     const [questions, setQuestions] = useState([]);
-  
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
       axios
         .get(`http://localhost:8080/api/assessmentAttempt/questions?linkId=${linkId}`)
         .then((response) => {
           setQuestions(response.data);
           setMarkedAnswers(new Array(response.data.length));
+          setIsLoading(false);
         })
         .catch((error) => {
           console.log(error);
@@ -40,7 +42,26 @@ const Test = (props) => {
   
     return (
       <div className="quiz-screen">
-        {questions.length > 0 && currentQuestionIndex < questions.length ? (
+        {isLoading ? (
+        // <div className="loading">Loading...</div>
+        <div
+        className="spinner-container"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Spinner animation="border" role="status" style={{ color: "#10ccf4" }}>
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      </div>
+      ) :questions.length > 0 && currentQuestionIndex < questions.length ? (
           <Question
             question={questions[currentQuestionIndex]}
             totalQuestions={questions.length}
