@@ -94,26 +94,18 @@ const Home = () => {
                   </div>
                 </div>
                 {data ? (
-                  <div className="col-md-4 col-10 mx-auto">
+                  <div className="col-md-8 col-12 mx-auto">
                     <h4>All the Best</h4>
                     
                    <b>{data.candidateEmail}. </b> <br />
-                       <h4> Instructions:</h4>
+                      <h4><b> Instructions:</b></h4>
               
                       <p>
-                      1. All questions are compulsory.
-                      <br />
-                      2. Try to submit the paper before the end time.
-                      <br />
-                      3. You are allowed to submit only once, make sure that you
-                      have correctly attempted all the questions before
-                      submission.
-                      <br />
-                      4. Make sure you clicked on submit button to successfully
-                      complete the test.
-                      <br />
-                      5. Camera should be on during the assessment.
-                      <br />
+                      1. All questions are compulsory.<br/>
+                      2. Try to submit the paper before the end time.<br/>
+                      3. You are allowed to submit only once, make sure you have correctly attempted all questions before submission.<br/>
+                      4. Make sure you clicked on submit button to successfully complete the test.<br/>
+                      5. Camera should be on during the assessment.<br/>
                       6. Form will be active for two hours only.
                     </p>
                   </div>
