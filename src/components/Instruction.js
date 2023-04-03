@@ -7,6 +7,7 @@ import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  
   let search = window.location.search;
   let params = new URLSearchParams(search);
   let linkId = params.get("linkId");

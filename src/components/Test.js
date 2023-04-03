@@ -5,8 +5,11 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import { Spinner } from "react-bootstrap";
+import Webcam from "react-webcam";
+
 
 const Test = (props) => {
+  
     const location = useLocation();
   const { linkId } = location.state
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -42,6 +45,7 @@ const Test = (props) => {
   
     return (
       <div className="quiz-screen">
+      
         {isLoading ? (
         // <div className="loading">Loading...</div>
         <div
