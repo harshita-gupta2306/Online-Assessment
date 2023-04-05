@@ -19,7 +19,7 @@ const Test = (props) => {
 
     useEffect(() => {
       axios
-        .get(`http://localhost:8080/api/assessmentAttempt/questions?linkId=${linkId}`)
+        .get(`http://65.0.130.13:8080/api/assessmentAttempt/questions?linkId=${linkId}`)
         .then((response) => {
           setQuestions(response.data);
           setMarkedAnswers(new Array(response.data.length));

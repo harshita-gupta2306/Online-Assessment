@@ -24,7 +24,7 @@ const Home = () => {
   const getUserDetails = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/assessmentAttempt/getAssessment?linkId=${linkId}`
+        `http://65.0.130.13:8080/api/assessmentAttempt/getAssessment?linkId=${linkId}`
       );
       setData(res.data);
     } catch (err) {
@@ -84,9 +84,7 @@ const Home = () => {
                           Please on the camera before starting the assessment.
                         </p>
                         <a
-                          href="http://localhost:3004/Test"
                           class="btn btn-success"
-                          onClick={handleStart}
                         >
                           Give Camera Access
                         </a>
