@@ -71,12 +71,8 @@ const Home = () => {
       formData.append("photo", dataURLtoFile(url, "photo.png"));
 
       registerStudents(formData)
-        .then((response) => {
-          if (response.ok) {
+        .then(() => {
             setShowPopup(true);
-          } else {
-            console.error("Failed to register");
-          }
         })
         .catch((error) => {
           console.error(error);
@@ -262,7 +258,7 @@ const Home = () => {
   );
 };
 
-const dataURLtoFile = (dataurl, filename) => {
+export const dataURLtoFile = (dataurl, filename) => {
   const arr = dataurl.split(",");
   const mime = arr[0].match(/:(.*?);/)[1];
   const bstr = atob(arr[1]);
