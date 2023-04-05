@@ -15,6 +15,6 @@ export const getQuestions = (
 };
 
 export const registerStudents = async (formData)=>{
-  const response = await makePostRequest(formData);
+  return makePostRequest(formData);
 }
 

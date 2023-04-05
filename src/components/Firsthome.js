@@ -51,9 +51,7 @@ const Firsthome = () => {
                     </Card>
                 </div>
             </section>
-        </div>
-
-    
+        </div>    
     )
 }
 
