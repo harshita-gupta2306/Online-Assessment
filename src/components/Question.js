@@ -72,7 +72,7 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
         }
       );
       console.log(res.data);
-      if (res.data.result == true) {
+      if (res.data.result == false) {
         setScreenshotCount((x) => x + 1);
       }
     } catch (err) {
