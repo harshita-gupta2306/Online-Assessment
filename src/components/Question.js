@@ -12,6 +12,7 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
   const [showEndScreen, setShowEndScreen] = useState(false);
   const [time, setTime] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
+  const [selectedAnswer, setSelectedAnswer] = useState(null)
 
   const onUserMedia = (e) => {
     console.log(e);
@@ -25,9 +26,10 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
       clearTimeout(timer.current);
     }
     flushSync(() => {
-      setAnswer(selectedOption);
+      setAnswer(selectedAnswer);
     });
     setSelectedOption(null);
+    setSelectedAnswer(null)
   }
 
   useEffect(() => {
@@ -132,6 +134,7 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
                   key={index}
                   onClick={() => {
                     setSelectedOption(index);
+                    setSelectedAnswer({answer:option, qid:question.id})
                     setUrl(null);
                   }}
                 >

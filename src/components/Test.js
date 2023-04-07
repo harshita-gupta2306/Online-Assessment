@@ -31,17 +31,18 @@ const Test = (props) => {
     }, []);
   
     const submitAssessment = () => {
+      console.log(markedAnswers)
         // Logic to submit the assessment
       };
 
-    const setAnswer = (index) => {
-      setMarkedAnswers((arr) => {
-        let newArr = [...arr];
-        newArr[currentQuestionIndex] = index + 1;
-        return newArr;
-      });
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    };
+      const setAnswer = (index) => {
+        setMarkedAnswers((arr) => {
+          const newArr = [...arr];
+          newArr[currentQuestionIndex] = index;
+          return newArr;
+        });
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      };
   
     return (
       <div className="quiz-screen">
@@ -82,5 +83,5 @@ const Test = (props) => {
       </div>
     );
   };
-  
+
   export default Test;
