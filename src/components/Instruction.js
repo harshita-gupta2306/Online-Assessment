@@ -68,13 +68,15 @@ const Home = () => {
           },
         }
       );
-      console.log(res.data.result);
       if (res.data.result === true) {
         setVerificationStatus(true);
+      }else{
+        setVerificationStatus(false);
       }
     } catch (err) {
       console.log(err);
-      // show error in ui or something
+      setVerificationStatus(false);
+      //TODO: show error in ui or something
     }
   };
 
