@@ -49,12 +49,15 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
   }
 
   useEffect(() => {
-    progressBar.current.classList.add("active");
+    progressBar.current.classList.remove("active");
+    setTimeout(() => {
+        progressBar.current.classList.add("active");
+    }, 0);
     timer.current = setTimeout(() => {
       handleNextClick()
       setUrl(null);
     }, 10 * 1000);
-  }, [question]);
+  }, [question, timer]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
