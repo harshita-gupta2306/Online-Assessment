@@ -4,6 +4,7 @@ import React from "react";
 import Webcam from "react-webcam";
 import { Card } from "react-bootstrap";
 import axios from "axios";
+import "./Question.css"
 
 function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
   const webRef = useRef(null);
@@ -12,36 +13,47 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
   const [showEndScreen, setShowEndScreen] = useState(false);
   const [time, setTime] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
-  const [selectedAnswer, setSelectedAnswer] = useState(null)
-
-  const onUserMedia = (e) => {
-    console.log(e);
-  };
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
+
+  useEffect(() => {
+    setSelectedOption("");
+  }, [question]);
+
+  const handleOptionChange = (index) => {
+    setSelectedOption(index);
+    setSelectedAnswer(question.options[index]);
+  };
+
   const timer = useRef(null);
   const progressBar = useRef(null);
+
+  const handleNextClick = () => {
+    if (selectedOption !== "") {
+      progressBar.current.classList.remove("active");
+      setAnswer(selectedOption);
+      setSelectedOption("");
+      gotoNextQuestion();
+    } else {
+      progressBar.current.classList.remove("active");
+      setAnswer("");
+      setSelectedOption("");
+      gotoNextQuestion();
+    }
+  };
 
   async function gotoNextQuestion() {
     if (timer.current) {
       clearTimeout(timer.current);
     }
-    flushSync(() => {
-      setAnswer(selectedAnswer);
-    });
-    setSelectedOption(null);
-    setSelectedAnswer(null)
   }
 
   useEffect(() => {
-    progressBar.current.classList.remove("active");
-    setTimeout(() => {
-      progressBar.current.classList.add("active");
-    }, 0);
+    progressBar.current.classList.add("active");
     timer.current = setTimeout(() => {
-      gotoNextQuestion();
+      handleNextClick()
       setUrl(null);
     }, 10 * 1000);
-    return gotoNextQuestion;
   }, [question]);
 
   useEffect(() => {
@@ -107,11 +119,7 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
           marginTop: "1rem",
         }}
       >
-        <Webcam
-          ref={webcamRef}
-          screenshotFormat="image/png"
-          onUserMedia={onUserMedia}
-        />
+        <Webcam ref={webcamRef} screenshotFormat="image/png" />
       </Card>
 
       <div className="question" style={{ marginTop: "2rem" }}>
@@ -124,30 +132,28 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
             <span>Question:</span>
             <p>{question.question}</p>
           </div>
+
           <div className="options">
-            {question.options.map((option, index) => {
-              return (
-                <div
-                  className={
-                    index === selectedOption ? "option active" : "option"
-                  }
-                  key={index}
-                  onClick={() => {
-                    setSelectedOption(index);
-                    setSelectedAnswer({answer:option, qid:question.id})
-                    setUrl(null);
-                  }}
-                >
-                  {option}
-                </div>
-              );
-            })}
-          </div>
+          {question.options.map((option, index) => (
+            <div
+              key={index}
+              className={`option ${
+                selectedOption === index ? "selected" : ""} ${
+                selectedOption !== null && selectedAnswer !== option ? "incorrect" : ""
+              }`}
+              onClick={() => handleOptionChange(index)}
+            >
+              {option}
+            </div>
+          ))}
+        </div>
+
+
         </div>
         <div className="control">
           <button
             onClick={() => {
-              gotoNextQuestion();
+              handleNextClick();
               setUrl(null);
             }}
           >
