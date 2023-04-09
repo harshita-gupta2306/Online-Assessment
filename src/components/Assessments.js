@@ -8,7 +8,7 @@ const Assessment = () => {
 
   useEffect(() => {
     axios
-    .get('http://localhost:8080/api/getAssessment')
+    .get('http://65.0.130.13:8080/api/getAssessment')
       .then(response => response.data)
       .then(data => {
         console.log(data);
