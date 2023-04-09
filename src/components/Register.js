@@ -1,14 +1,18 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useParams } from 'react-router-dom';
 import { useRef } from "react";
 import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Webcam from "react-webcam";
 import { registerStudents } from "../api/Api";
 import "./test.css"; // Import the CSS file
+import { useLocation } from "react-router-dom";
 
-const Home = () => {
+const Register = (props) => {
+
+  const { id } = useParams();
   const webRef = useRef(null);
   const [url, setUrl] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -61,7 +65,7 @@ const Home = () => {
     } else {
       const formData = new FormData();
       let data = {
-        assessmentId: 1,
+        assessmentId: id,
         email: email,
         name: name,
         linkedin: "www.linkidin.com",
@@ -270,4 +274,4 @@ export const dataURLtoFile = (dataurl, filename) => {
   return new File([u8arr], filename, { type: mime });
 };
 
-export default Home;
+export default Register;

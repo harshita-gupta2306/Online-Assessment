@@ -2,13 +2,14 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Header from './components/Header';
-import Home from './components/Home';
+import Register from './components/Register';
 import Firsthome from './components/Firsthome';
 import Test from './components/Test';
 import {Routes, Route} from "react-router-dom";
 import Instruction from './components/Instruction';
 import React, { useEffect } from 'react';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import Assessment from './components/Assessments'
 
 function App() {
   // useEffect(() => {
@@ -29,10 +30,11 @@ function App() {
     <>
       {/* <Header /> */}
       <Routes>
-        <Route path='/' element= {<Firsthome />} />
-        <Route path='/Home' element={<Home />} />
-        <Route path='/Test' element={<Test/>}/>
+        {/* <Route path='/assessment/' element= {<Firsthome />} /> */}
+        <Route path='/register/:id' element={<Register />} />
+        <Route path='/test' element={<Test/>}/>
         <Route path='/instructions' element={<Instruction/>}/>
+        <Route path='/' element={<Assessment/>}/>
       </Routes>
     </>
 

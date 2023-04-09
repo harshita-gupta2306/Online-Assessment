@@ -94,6 +94,7 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
       }
     } catch (err) {
       console.log(err);
+      setScreenshotCount((x) => x + 1);
       //TODO: show error in ui or something
     }
   };
@@ -108,7 +109,39 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
   }, [time]);
 
   if (showEndScreen) {
-    return <div>End Screen</div>;
+    return (
+      <div className="chatgpt">
+        <div className="end-screen" style={{
+          display: 'flex',
+          flexDirection:'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          color: '#fff',
+          backgroundColor: '#ff8a80',
+          padding: '4rem',
+          borderRadius: '1rem',
+          boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.3)',
+          letterSpacing: '0.1em',
+          textAlign: 'center'
+        }}>
+          <h1 style={{
+            fontSize: '3.0rem',
+            fontWeight: 'bold',
+            margin: 0
+          }}>Exam Terminated</h1>
+          <p style={{
+            fontSize: '1.4rem',
+            margin: '1rem 0 0',
+            lineHeight: '1.2'
+          }}>The examination has been terminated due to the detection of multiple individuals or unidentified persons present in the vicinity.</p><br></br>
+          <p style={{
+            fontSize: '1.4rem',
+            margin: '1rem 0 0',
+            lineHeight: '1.2'
+          }}>Sorry, Better luck Next Time!!</p>
+        </div>
+      </div>
+    );
   }
 
   return (
