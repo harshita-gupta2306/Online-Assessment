@@ -32,6 +32,12 @@ const Test = (props) => {
 
   const submitAssessment = () => {
     console.log(markedAnswers); // Logic to submit the assessment
+    axios.post(
+      `http://65.0.130.13:8080/api/assessmentAttempt/submit?linkId=${linkId}`,
+      markedAnswers
+    ).catch((e)=>{
+      console.log(e)
+    })
   };
 
   const setAnswer = (index) => {
