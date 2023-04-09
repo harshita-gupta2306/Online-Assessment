@@ -6,7 +6,7 @@ import { Card } from "react-bootstrap";
 import axios from "axios";
 import "./Question.css"
 
-function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
+function Question({ question, totalQuestions, currentQuestion, setAnswer, assessmentAttemptId }) {
   const webRef = useRef(null);
   const [url, setUrl] = useState(null);
   const [screenshotCount, setScreenshotCount] = useState(0);
@@ -74,7 +74,7 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer }) {
     try {
       const formData = new FormData();
       let data = {
-        id: 1, //dataRef.current.id,
+        id: assessmentAttemptId, //dataRef.current.id,
       };
       data = JSON.stringify(data);
       formData.append("data", data);

@@ -9,7 +9,7 @@ import Webcam from "react-webcam";
 
 const Test = (props) => {
   const location = useLocation();
-  const { linkId } = location.state;
+  const { linkId,  assessmentAttemptId } = location.state;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [markedAnswers, setMarkedAnswers] = useState([]);
   const [questions, setQuestions] = useState([]);
@@ -96,7 +96,7 @@ const Test = (props) => {
           totalQuestions={questions.length}
           currentQuestion={currentQuestionIndex + 1}
           setAnswer={setAnswer}
-          linkId={linkId}
+          assessmentAttemptId={assessmentAttemptId}
         />
       ) : (
         <div className="assessment-completed">

@@ -45,7 +45,7 @@ const Home = () => {
   };
 
   const handleStart = () => {
-    navigate(`/Test`, { state: { linkId } });
+    navigate(`/Test`, { state: { linkId, assessmentAttemptId: dataRef.current.assessmentAttemptId  } });
   };
 
   const handleImageCapture = async () => {
@@ -54,7 +54,7 @@ const Home = () => {
     try {
       const formData = new FormData();
       let data = {
-        id: 1, //dataRef.current.id,
+        id: dataRef.current.assessmentAttemptId,
       };
       data = JSON.stringify(data);
       formData.append("data", data);
