@@ -4,9 +4,16 @@ import React from "react";
 import Webcam from "react-webcam";
 import { Card } from "react-bootstrap";
 import axios from "axios";
-import "./Question.css"
+import "./Question.css";
+import { monitorImage } from "../api/apiUtil";
 
-function Question({ question, totalQuestions, currentQuestion, setAnswer, assessmentAttemptId }) {
+function Question({
+  question,
+  totalQuestions,
+  currentQuestion,
+  setAnswer,
+  assessmentAttemptId,
+}) {
   const webRef = useRef(null);
   const [url, setUrl] = useState(null);
   const [screenshotCount, setScreenshotCount] = useState(0);
@@ -29,17 +36,10 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer, assess
   const progressBar = useRef(null);
 
   const handleNextClick = () => {
-    if (selectedOption !== "") {
-      progressBar.current.classList.remove("active");
-      setAnswer(selectedOption);
-      setSelectedOption("");
-      gotoNextQuestion();
-    } else {
-      progressBar.current.classList.remove("active");
-      setAnswer("");
-      setSelectedOption("");
-      gotoNextQuestion();
-    }
+    progressBar.current.classList.remove("active");
+    setAnswer(selectedOption !== "" ? selectedOption : "");
+    setSelectedOption("");
+    gotoNextQuestion();
   };
 
   async function gotoNextQuestion() {
@@ -51,10 +51,10 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer, assess
   useEffect(() => {
     progressBar.current.classList.remove("active");
     setTimeout(() => {
-        progressBar.current.classList.add("active");
+      progressBar.current.classList.add("active");
     }, 0);
     timer.current = setTimeout(() => {
-      handleNextClick()
+      handleNextClick();
       setUrl(null);
     }, 10 * 1000);
   }, [question, timer]);
@@ -79,16 +79,7 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer, assess
       data = JSON.stringify(data);
       formData.append("data", data);
       formData.append("image", dataURLtoFile(imageSrc, "photo.png"));
-      const res = await axios.post(
-        `http://35.200.149.190:5000/process_image`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log(res.data);
+      const res = await monitorImage(formData);
       if (res.data.result == false) {
         setScreenshotCount((x) => x + 1);
       }
@@ -111,34 +102,51 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer, assess
   if (showEndScreen) {
     return (
       <div className="chatgpt">
-        <div className="end-screen" style={{
-          display: 'flex',
-          flexDirection:'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          color: '#fff',
-          backgroundColor: '#ff8a80',
-          padding: '4rem',
-          borderRadius: '1rem',
-          boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.3)',
-          letterSpacing: '0.1em',
-          textAlign: 'center'
-        }}>
-          <h1 style={{
-            fontSize: '3.0rem',
-            fontWeight: 'bold',
-            margin: 0
-          }}>Exam Terminated</h1>
-          <p style={{
-            fontSize: '1.4rem',
-            margin: '1rem 0 0',
-            lineHeight: '1.2'
-          }}>The examination has been terminated due to the detection of multiple individuals or unidentified persons present in the vicinity.</p><br></br>
-          <p style={{
-            fontSize: '1.4rem',
-            margin: '1rem 0 0',
-            lineHeight: '1.2'
-          }}>Sorry, Better luck Next Time!!</p>
+        <div
+          className="end-screen"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "#fff",
+            backgroundColor: "#ff8a80",
+            padding: "4rem",
+            borderRadius: "1rem",
+            boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.3)",
+            letterSpacing: "0.1em",
+            textAlign: "center",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "3.0rem",
+              fontWeight: "bold",
+              margin: 0,
+            }}
+          >
+            Exam Terminated
+          </h1>
+          <p
+            style={{
+              fontSize: "1.4rem",
+              margin: "1rem 0 0",
+              lineHeight: "1.2",
+            }}
+          >
+            The examination has been terminated due to the detection of multiple
+            individuals or unidentified persons present in the vicinity.
+          </p>
+          <br></br>
+          <p
+            style={{
+              fontSize: "1.4rem",
+              margin: "1rem 0 0",
+              lineHeight: "1.2",
+            }}
+          >
+            Sorry, Better luck Next Time!!
+          </p>
         </div>
       </div>
     );
@@ -170,21 +178,22 @@ function Question({ question, totalQuestions, currentQuestion, setAnswer, assess
           </div>
 
           <div className="options">
-          {question.options.map((option, index) => (
-            <div
-              key={index}
-              className={`option ${
-                selectedOption === index ? "selected" : ""} ${
-                selectedOption !== null && selectedAnswer !== option ? "incorrect" : ""
-              }`}
-              onClick={() => handleOptionChange(index)}
-            >
-              {option}
-            </div>
-          ))}
-        </div>
-
-
+            {question.options.map((option, index) => (
+              <div
+                key={index}
+                className={`option ${
+                  selectedOption === index ? "selected" : ""
+                } ${
+                  selectedOption !== null && selectedAnswer !== option
+                    ? "incorrect"
+                    : ""
+                }`}
+                onClick={() => handleOptionChange(index)}
+              >
+                {option}
+              </div>
+            ))}
+          </div>
         </div>
         <div className="control">
           <button

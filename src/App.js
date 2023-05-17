@@ -1,16 +1,14 @@
-
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import Header from './components/Header';
-import Register from './components/Register';
-import Firsthome from './components/Firsthome';
-import Test from './components/Test';
-import {Routes, Route} from "react-router-dom";
-import Instruction from './components/Instruction';
-import React, { useEffect } from 'react';
+import Register from "./components/Register";
+import Test from "./components/Test";
+import { Routes, Route } from "react-router-dom";
+import Instruction from "./components/Instruction";
+import React, { useEffect } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import Assessment from './components/Assessments'
-import Report from './components/Report'
+import Assessment from "./components/Assessments";
+import Report from "./components/Report";
 
 function App() {
   // useEffect(() => {
@@ -32,14 +30,13 @@ function App() {
       {/* <Header /> */}
       <Routes>
         {/* <Route path='/assessment/' element= {<Firsthome />} /> */}
-        <Route path='/register/:id' element={<Register />} />
-        <Route path='/test' element={<Test/>}/>
-        <Route path='/instructions' element={<Instruction/>}/>
-        <Route path='/' element={<Assessment/>}/>
-        <Route path='/report/:id' element={<Report/>}/>
+        <Route path="/register/:id" element={<Register />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/instructions" element={<Instruction />} />
+        <Route path="/" element={<Assessment />} />
+        <Route path="/report/:id" element={<Report />} />
       </Routes>
     </>
-
   );
 }
 

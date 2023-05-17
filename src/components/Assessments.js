@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Assessment.css';
-import axios from "axios";
+import { getAssessments } from '../api/apiUtil';
 
 const Assessment = () => {
   const [objects, setObjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-    .get('http://65.0.130.13:8080/api/getAssessment')
+    getAssessments()
       .then(response => response.data)
       .then(data => {
         console.log(data);

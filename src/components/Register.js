@@ -1,17 +1,15 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { useRef } from "react";
 import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Webcam from "react-webcam";
-import { registerStudents } from "../api/Api";
 import "./test.css"; // Import the CSS file
-import { useLocation } from "react-router-dom";
+import { registerStudents, verifyImage } from "../api/apiUtil";
 
 const Register = (props) => {
-
   const { id } = useParams();
   const webRef = useRef(null);
   const [url, setUrl] = useState(null);
@@ -48,7 +46,7 @@ const Register = (props) => {
       };
     });
   };
-  const addData = (e) => {
+  const addData = async (e) => {
     e.preventDefault();
     const { name, lastName, email, dob, collegeName, password } = inpval;
 
@@ -74,13 +72,25 @@ const Register = (props) => {
       formData.append("body", data);
       formData.append("photo", dataURLtoFile(url, "photo.png"));
 
-      registerStudents(formData)
-        .then(() => {
+      const formData2 = new FormData();
+      formData2.append("image", dataURLtoFile(url, "photo.png"));
+      const resp = await verifyImage(formData2);
+
+      if (resp.data.result === false) {
+        // Show error popup
+        showErrorPopup("Face Not detected");
+      } else if (resp.error) {
+        // Show error popup
+        showErrorPopup(resp.error.message);
+      } else {
+        registerStudents(formData)
+          .then(() => {
             setShowPopup(true);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     }
   };
 
@@ -178,15 +188,17 @@ const Register = (props) => {
                     label="By registering for this opportunity you agree to share the data mentioned in this form."
                   />
                 </Form.Group>
-                {isFirstButtonPressed && <Button
-                  className="mb-5 col-lg-10"
-                  onClick={addData}
-                  style={{ border: "rgb(67,185,127)" }}
-                  variant="success"
-                  type="submit"
-                >
-                  Submit
-                </Button>}
+                {isFirstButtonPressed && (
+                  <Button
+                    className="mb-5 col-lg-10"
+                    onClick={addData}
+                    style={{ border: "rgb(67,185,127)" }}
+                    variant="success"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                )}
                 {showPopup && (
                   <div className="popup">Successfully registered!</div>
                 )}
@@ -275,3 +287,29 @@ export const dataURLtoFile = (dataurl, filename) => {
 };
 
 export default Register;
+
+function showErrorPopup(message) {
+  // Create a new element
+  const errorPopup = document.createElement("div");
+  errorPopup.classList.add("error-popup");
+  errorPopup.textContent = message;
+
+  // Append the element to the DOM
+  document.body.appendChild(errorPopup);
+
+  errorPopup.style.top = "50%";
+  errorPopup.style.left = "50%";
+  errorPopup.style.transform = "translate(-50%, -50%)";
+
+  // Add a click listener to close the popup
+  errorPopup.addEventListener("click", () => {
+    errorPopup.remove();
+  });
+
+  // Close the popup after 3 seconds
+  setTimeout(() => {
+    errorPopup.remove();
+  }, 3000);
+
+  document.body.style.backdropFilter = "blur(5px)";
+}

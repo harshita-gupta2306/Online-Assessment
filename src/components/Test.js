@@ -6,20 +6,18 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import Webcam from "react-webcam";
+import { getQuestions, submitAnswers } from "../api/apiUtil.js";
 
 const Test = (props) => {
   const location = useLocation();
-  const { linkId,  assessmentAttemptId } = location.state;
+  const { linkId, assessmentAttemptId } = location.state;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [markedAnswers, setMarkedAnswers] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(
-        `http://65.0.130.13:8080/api/assessmentAttempt/questions?linkId=${linkId}`
-      )
+    getQuestions(linkId)
       .then((response) => {
         setQuestions(response.data);
         setMarkedAnswers(new Array(response.data.length));
@@ -30,14 +28,14 @@ const Test = (props) => {
       });
   }, [linkId]);
 
-  const submitAssessment = () => {
-    console.log(markedAnswers); // Logic to submit the assessment
-    axios.post(
-      `http://65.0.130.13:8080/api/assessmentAttempt/submit?linkId=${linkId}`,
-      markedAnswers
-    ).catch((e)=>{
-      console.log(e)
-    })
+  const submitAssessment = async () => {
+    const updatedData = markedAnswers.map((obj) => {
+      if (typeof obj.answer === "undefined") {
+        obj.answer = "";
+      }
+      return obj;
+    });
+    const resp = await submitAnswers(updatedData, linkId);
   };
 
   const setAnswer = (index) => {
@@ -62,7 +60,7 @@ const Test = (props) => {
 
       return newArr;
     });
-    setCurrentQuestionIndex((currentQuestionIndex)=>currentQuestionIndex + 1);
+    setCurrentQuestionIndex((currentQuestionIndex) => currentQuestionIndex + 1);
   };
 
   return (

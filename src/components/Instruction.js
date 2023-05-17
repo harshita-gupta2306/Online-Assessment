@@ -7,6 +7,7 @@ import { Spinner } from "react-bootstrap";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
+import { getUserDetail, monitorImage } from "../api/apiUtil";
 
 const Home = () => {
   let search = window.location.search;
@@ -32,10 +33,9 @@ const Home = () => {
 
   const getUserDetails = async () => {
     try {
-      const res = await axios.get(
-        `http://65.0.130.13:8080/api/assessmentAttempt/getAssessment?linkId=${linkId}`
-      );
+      const res = await getUserDetail(linkId);
       setData(res.data);
+      console.log(res.data);
     } catch (err) {
       console.log(err);
       //show error in ui or something
@@ -45,7 +45,12 @@ const Home = () => {
   };
 
   const handleStart = () => {
-    navigate(`/Test`, { state: { linkId, assessmentAttemptId: dataRef.current.assessmentAttemptId  } });
+    navigate(`/Test`, {
+      state: {
+        linkId,
+        assessmentAttemptId: dataRef.current.assessmentAttemptId,
+      },
+    });
   };
 
   const handleImageCapture = async () => {
@@ -59,18 +64,10 @@ const Home = () => {
       data = JSON.stringify(data);
       formData.append("data", data);
       formData.append("image", dataURLtoFile(imageSrc, "photo.png"));
-      const res = await axios.post(
-        `http://35.200.149.190:5000/process_image`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const res = await monitorImage(formData);
       if (res.data.result === true) {
         setVerificationStatus(true);
-      }else{
+      } else {
         setVerificationStatus(false);
       }
     } catch (err) {
