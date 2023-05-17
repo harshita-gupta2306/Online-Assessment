@@ -74,7 +74,8 @@
   }
   
   .assessment-card-title {
-    font-size: 2rem;
+    font-size: 1.4rem;
+    font-weight: bold;
     margin-bottom: 1rem;
     color: #333;
     animation: fadeInUp 1s ease-in-out;
@@ -82,7 +83,7 @@
 
   .assessment-card-description {
     font-size: 1.0rem;
-    color: #555;
+    color: #550;
     animation: fadeInUp 1s ease-in-out;
     text-decoration: none;
   }
