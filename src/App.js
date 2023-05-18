@@ -10,6 +10,7 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Assessment from "./components/Assessments";
 import Report from "./components/Report";
 import NotFound from "./components/NotFount";
+import SuccessPage from "./components/SuccessfullyRegistred";
 
 function App() {
   // useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/" element={<Assessment />} />
         <Route path="/report/:id" element={<Report />} />
         <Route path="/error" element={<NotFound />} />
+        <Route path="/success" element={<SuccessPage />} />
       </Routes>
     </>
   );

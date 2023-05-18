@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRef } from "react";
 import { useState } from "react";
 import Card from "react-bootstrap/Card";
@@ -10,6 +10,8 @@ import "./test.css"; // Import the CSS file
 import { registerStudents, verifyImage } from "../api/apiUtil";
 
 const Register = (props) => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const webRef = useRef(null);
   const [url, setUrl] = useState(null);
@@ -85,7 +87,8 @@ const Register = (props) => {
       } else {
         registerStudents(formData)
           .then(() => {
-            setShowPopup(true);
+            navigate('/success');
+            // setShowPopup(true);
           })
           .catch((error) => {
             console.error(error);
