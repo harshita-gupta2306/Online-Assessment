@@ -36,11 +36,8 @@ export async function submitAnswers(markedAnswers, linkId) {
       `${apiHost}public/api/assessmentAttempt/submit?linkId=${linkId}`,
       markedAnswers
     )
-    .then((x) => x)
-    .catch((e) => {
-      console.log(e);
-    });
-}
+  return resp;
+  }
 
 export async function getQuestions(linkId) {
   const resp = await axios.get(

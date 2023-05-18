@@ -3,7 +3,7 @@ import { useState } from "react";
 import Question from "./Question.js";
 import { useEffect } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useNavigation } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import Webcam from "react-webcam";
 import { getQuestions, submitAnswers } from "../api/apiUtil.js";
@@ -16,6 +16,8 @@ const Test = (props) => {
   const [markedAnswers, setMarkedAnswers] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getQuestions(linkId)
@@ -37,6 +39,9 @@ const Test = (props) => {
       return obj;
     });
     const resp = await submitAnswers(updatedData, linkId);
+    if(resp.status > 200 & resp.status < 200){
+      navigate(`/submitted`)
+    }
   };
 
   const setAnswer = (index) => {

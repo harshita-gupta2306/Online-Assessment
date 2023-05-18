@@ -11,6 +11,7 @@ import Assessment from "./components/Assessments";
 import Report from "./components/Report";
 import NotFound from "./components/NotFount";
 import SuccessPage from "./components/SuccessfullyRegistred";
+import SubmissionSuccessPage from "./components/SubmissionSuccessPage";
 
 function App() {
   // useEffect(() => {
@@ -31,7 +32,6 @@ function App() {
     <>
       {/* <Header /> */}
       <Routes>
-        {/* <Route path='/assessment/' element= {<Firsthome />} /> */}
         <Route path="/register/:id" element={<Register />} />
         <Route path="/test" element={<Test />} />
         <Route path="/instructions" element={<Instruction />} />
@@ -39,6 +39,7 @@ function App() {
         <Route path="/report/:id" element={<Report />} />
         <Route path="/error" element={<NotFound />} />
         <Route path="/success" element={<SuccessPage />} />
+        <Route path="/submitted" element={<SubmissionSuccessPage />} />
       </Routes>
     </>
   );
