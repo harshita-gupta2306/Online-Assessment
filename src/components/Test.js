@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import Webcam from "react-webcam";
 import { getQuestions, submitAnswers } from "../api/apiUtil.js";
+import DisableRightClickPage from "./disableRightClick.js";
 
 const Test = (props) => {
   const location = useLocation();
@@ -65,6 +66,7 @@ const Test = (props) => {
 
   return (
     <div className="quiz-screen">
+      <DisableRightClickPage />
       {isLoading ? (
         // <div className="loading">Loading...</div>
         <div

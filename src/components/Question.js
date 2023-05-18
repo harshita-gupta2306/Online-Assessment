@@ -6,6 +6,7 @@ import { Card } from "react-bootstrap";
 import axios from "axios";
 import "./Question.css";
 import { monitorImage } from "../api/apiUtil";
+import DisableRightClickPage from "./disableRightClick";
 
 function Question({
   question,
@@ -154,6 +155,7 @@ function Question({
 
   return (
     <div>
+      <DisableRightClickPage />
       <Card
         style={{
           width: "15rem",

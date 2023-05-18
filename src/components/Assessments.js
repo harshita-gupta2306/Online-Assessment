@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './Assessment.css';
-import { getAssessments } from '../api/apiUtil';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./Assessment.css";
+import { getAssessments } from "../api/apiUtil";
+import DisableRightClickPage from "./disableRightClick";
 
 const Assessment = () => {
   const [objects, setObjects] = useState([]);
@@ -9,16 +10,17 @@ const Assessment = () => {
 
   useEffect(() => {
     getAssessments()
-      .then(response => response.data)
-      .then(data => {
+      .then((response) => response.data)
+      .then((data) => {
         console.log(data);
-        setObjects(data)
+        setObjects(data);
         setLoading(false);
-      }).catch((e)=>{
-        console.log(e)
+      })
+      .catch((e) => {
+        console.log(e);
       });
   }, []);
-  
+
   if (loading) {
     return (
       <div className="assessment-container">
@@ -41,10 +43,24 @@ const Assessment = () => {
           <Link to={`/register/${object.id}`} key={object.id}>
             <div className="assessment-card">
               <h3 className="assessment-card-title">{object.name}</h3>
-              <p className="assessment-card-description">{object.assessmentDetails}</p>
-              <p className='assessment-card-description'>Exam Starts At: {object.expiryDate ? object.expiryDate.split("T")[0] : "Not available"}</p>
-              <p className='assessment-card-description'>Exam Ends At: {object.startDate  ? object.startDate.split("T")[0] : "Not available"}</p>
-              <p className='assessment-card-description'>Exam Duration: {object.duration}</p>
+              <p className="assessment-card-description">
+                {object.assessmentDetails}
+              </p>
+              <p className="assessment-card-description">
+                Exam Starts At:{" "}
+                {object.expiryDate
+                  ? object.expiryDate.split("T")[0]
+                  : "Not available"}
+              </p>
+              <p className="assessment-card-description">
+                Exam Ends At:{" "}
+                {object.startDate
+                  ? object.startDate.split("T")[0]
+                  : "Not available"}
+              </p>
+              <p className="assessment-card-description">
+                Exam Duration: {object.duration}
+              </p>
             </div>
           </Link>
         ))}

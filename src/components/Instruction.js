@@ -8,6 +8,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { getUserDetail, monitorImage } from "../api/apiUtil";
+import DisableRightClickPage from "./disableRightClick";
 
 const Home = () => {
   let search = window.location.search;
@@ -34,10 +35,13 @@ const Home = () => {
   const getUserDetails = async () => {
     try {
       const res = await getUserDetail(linkId);
+      if(res.status === 404){
+        navigate('/error')
+      }
       setData(res.data);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
+      navigate('/error')
       //show error in ui or something
     } finally {
       setIsLoading(false);
@@ -104,6 +108,7 @@ const Home = () => {
   return (
     <>
       <div className="container-fluid nav_bg">
+      {/* <DisableRightClickPage /> */}
         <h3 className="text-center" style={{ marginTop: "3rem" }}>
           {" "}
           Welcome to the assessment{" "}
